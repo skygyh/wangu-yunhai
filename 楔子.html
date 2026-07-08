@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>楔子 - 万古云海</title>
+<style>
+:root {
+    --bg: #0e0e12;
+    --card-bg: #16161d;
+    --text: #d4d4dc;
+    --text-dim: #8a8a9a;
+    --accent: #6c9bff;
+    --accent2: #a78bfa;
+    --gold: #f0c674;
+    --border: #2a2a3a;
+    --hover: #1e1e2a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Noto Serif SC", "Source Han Serif CN", "Songti SC", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    min-height: 100vh;
+}
+.container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+h1 {
+    text-align: center; font-size: 2.2em; color: var(--gold);
+    margin-bottom: 8px; letter-spacing: 0.15em;
+}
+.subtitle { text-align: center; color: var(--text-dim); margin-bottom: 40px; font-size: 0.95em; }
+h2 {
+    font-size: 1.5em; color: var(--accent); margin: 48px 0 16px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+h3 { font-size: 1.2em; color: var(--accent2); margin: 32px 0 12px; }
+h4, h5, h6 { color: var(--gold); margin: 24px 0 8px; }
+p { margin: 12px 0; text-indent: 2em; text-align: justify; }
+blockquote {
+    border-left: 3px solid var(--accent2); margin: 16px 0;
+    padding: 8px 20px; background: rgba(167,139,250,0.06);
+    border-radius: 0 6px 6px 0;
+}
+blockquote p { text-indent: 0; color: var(--text-dim); font-style: italic; }
+ul { margin: 12px 0 12px 2em; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+table {
+    width: 100%; border-collapse: collapse; margin: 16px 0;
+    font-size: 0.92em;
+}
+th, td {
+    border: 1px solid var(--border); padding: 8px 12px; text-align: left;
+}
+th { background: rgba(108,155,255,0.1); color: var(--accent); font-weight: 600; }
+td { background: var(--card-bg); }
+strong { color: var(--gold); }
+code { background: rgba(108,155,255,0.12); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+/* 首页专用 */
+.hero { text-align: center; padding: 60px 0 20px; }
+.hero h1 { font-size: 3em; margin-bottom: 12px; }
+.hero .stats { color: var(--text-dim); font-size: 1.05em; margin-bottom: 48px; }
+.vol-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+.vol-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 24px; transition: all 0.25s;
+    cursor: pointer; text-decoration: none; display: block;
+}
+.vol-card:hover { border-color: var(--accent); background: var(--hover); transform: translateY(-2px); }
+.vol-card .vol-title { font-size: 1.2em; color: var(--gold); margin-bottom: 6px; }
+.vol-card .vol-meta { color: var(--text-dim); font-size: 0.88em; }
+.vol-card .vol-chapters {
+    margin-top: 10px; font-size: 0.85em; color: var(--text-dim);
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+}
+.vol-card:hover .vol-chapters { max-height: 600px; }
+.vol-card .vol-chapters span { display: inline-block; margin: 2px 8px 2px 0; }
+.vol-card .vol-chapters a { color: var(--accent); }
+.vol-card .vol-chapters a:hover { color: var(--gold); }
+
+/* 导航 */
+.nav {
+    position: sticky; top: 0; background: rgba(14,14,18,0.92);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
+    padding: 10px 24px; z-index: 100; display: flex; align-items: center;
+    gap: 16px; font-size: 0.9em;
+}
+.nav a { color: var(--text-dim); }
+.nav a:hover { color: var(--gold); }
+.nav .sep { color: var(--border); }
+
+/* 返回顶部 */
+.back-top {
+    position: fixed; bottom: 32px; right: 32px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--card-bg); border: 1px solid var(--border);
+    color: var(--accent); font-size: 1.3em; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+}
+.back-top.show { opacity: 1; }
+
+@media (max-width: 640px) {
+    .container { padding: 20px 16px 60px; }
+    h1 { font-size: 1.6em; }
+    h2 { font-size: 1.25em; }
+    .hero h1 { font-size: 2em; }
+    table { font-size: 0.82em; }
+    th, td { padding: 5px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="nav">
+<a href="index.html">首页</a>
+<span class="sep">›</span>
+<span style="color:var(--gold)">楔子</span>
+<span style="flex:1"></span>
+<a href="第一卷_初入修途.html">第一卷 · 初入修途 →</a>
+</div>
+<div class="container">
+<h1 id="楔子">楔子</h1>
+<p>混沌未开，天地不存。</p>
+<p>无尽的虚无之中，没有光，没有暗，没有上，没有下。只有一片浩瀚无垠的混沌之气，如同沉睡的巨兽，缓缓翻涌。</p>
+<p>不知过了多久——也许是一瞬，也许是万古——混沌之中忽然诞生了第一缕意识。</p>
+<p>那意识没有名字，没有形体，只是一个念头：</p>
+<p>“我……在哪里？”</p>
+<p>这个念头如同投入死水中的石子，混沌之气开始震荡。无数岁月的沉寂被打破，一股不可思议的力量从混沌最深处涌出，如同远古巨龙睁开了沉睡亿万年的双眼。</p>
+<p>混沌炸裂。</p>
+<p>无穷的能量如同亿万条银河同时倾泻，光与暗在这一刻诞生，上与下在这一刻分离，天与地在这一刻成形。</p>
+<p>万古天渊——就此开辟。</p>
+<p>那是一片无边无际的浩瀚世界。无数星辰在天渊之中点亮，如同散落在黑绒上的碎钻。无数大地在天渊之中凝聚，如同漂浮在汪洋上的岛屿。灵气如潮汐般涌动，法则如丝线般编织。</p>
+<p>这方天地，壮丽得令一切语言都显得苍白。</p>
+<p>但那第一缕意识——后来被称为“太初之主”——并不满意。</p>
+<p>它凝视着自己创造的一切，如同画家凝视着一幅并非出自本意的画作。万古天渊的诞生并非它的目的，而只是它苏醒时的一个意外。</p>
+<p>“不该有的……终将回归混沌。”</p>
+<p>它低语。</p>
+<p>然后，它开始试图收回这一切。</p>
+<p>天渊震荡。星辰坠落。大地崩裂。刚刚诞生的万物生灵在惊恐中哀号。</p>
+<p>但万古天渊已经有了自己的意志。生命一旦诞生，便不愿轻易消亡。</p>
+<p>从混沌中走出了九位存在。</p>
+<p>他们没有师承，没有功法，只凭着对天地法则最原始、最纯粹的感悟，踏入了至尊之境。他们在后世被称为“太初九尊”。</p>
+<p>九尊联手，与太初之主展开了一场旷日持久的大战。</p>
+<p>那场战斗持续了整整一个纪元。星域碎裂又重组，法则崩溃又重建。九尊之中，六位陨落，化作了六处万古禁地的核心。他们以自身为祭，以生命为锁，将太初之主的大半力量封入了天渊最深处的太初墟。</p>
+<p>剩下的三位至尊中，一位以残躯化为万寿神山，永镇中界。一位遁入轮回海，以自身元神维系轮回法则的运转，使万物生灵得以轮回不息。</p>
+<p>最后一位——太虚道祖——承受了最重的伤。</p>
+<p>他的至尊之躯近乎崩溃，神智在清醒与疯癫之间反复摇摆。但他做了一件所有人都无法理解的事。</p>
+<p>他从万古天渊的本源中取出了一枚珠子。</p>
+<p>那珠子不大，只有龙眼大小，灰蒙蒙的，毫不起眼。但它蕴含着万古天渊最核心的本源之力——太初之珠。</p>
+<p>只要太初之珠存在，万古天渊就不会被混沌吞噬。只要太初之珠觉醒，就有力量彻底消灭太初之主。</p>
+<p>但太初之珠不能独自存在。它需要一个载体。一个与万古天渊意志完美契合的载体。</p>
+<p>太虚道祖等了很久。</p>
+<p>从太初纪元等到诸神纪元，从诸神纪元等到万族纪元。神族兴起又覆灭，帝族轮替又消亡。十万年过去，天地法则日趋衰弱，太初墟的封印逐渐松动。</p>
+<p>太虚道祖知道，时间不多了。</p>
+<p>终于，在一个风雨交加的夜晚，在一个叫做云州的偏僻角落，在一个叫做落云镇的小小镇子里——</p>
+<p>一声婴儿的啼哭划破了夜空。</p>
+<p>太虚道祖站在雨中，那双浑浊到几乎看不见光芒的眼睛忽然亮了一下。</p>
+<p>“就是他。”</p>
+<p>他伸出颤抖的手指，一点灰色的光芒从指尖飘出，落入了那个啼哭不止的婴儿体内。太初之珠悄无声息地融入了婴儿的丹田，如同一颗种子埋入了泥土。</p>
+<p>婴儿停止了啼哭，睁开了一双清澈的眼睛，望向这个陌生的世界。</p>
+<p>太虚道祖笑了。那笑容有些疯癫，有些欣慰，有些悲凉，又有些释然。</p>
+<p>“小家伙，”他低声说，“以后的路，得你自己走了。”</p>
+<p>“老头子能做的，都做了。”</p>
+<p>他转身走入雨幕之中。邋遢的衣衫被雨水淋透，赤着的脚踩在泥泞的路上，嘴里哼着一首不成调的歌。</p>
+<p>一个老药师推开了药庐的门。他听到了风雨中的啼哭声，循声走去，在药庐门前的台阶上发现了一个被布巾裹着的婴儿。</p>
+<p>婴儿的眼睛很亮，像是藏着两颗星星。</p>
+<p>“这是……谁家的孩子？”老药师四下张望，雨幕中空无一人。他弯下腰，将婴儿抱了起来。婴儿在他怀中安静下来，小小的手抓住了他的衣襟。</p>
+<p>“罢了，罢了。”老药师叹了口气，将婴儿抱进了药庐，“既然到了我门前，便是缘分。”</p>
+<p>他看了看窗外翻涌的云层，又看了看怀中的婴儿。</p>
+<p>“就叫你……云海吧。”</p>
+<p>婴儿咯咯地笑了，像是很喜欢这个名字。</p>
+<p>药庐外，风雨渐息。</p>
+<p>云层之上，万古天渊的星光穿透了云层的缝隙，洒在这座小小的镇子上。</p>
+<p>没有人知道，这个被老药师捡到的婴儿，体内藏着一片天地的秘密。</p>
+<p>没有人知道，一个关于万古天渊的故事，就此开始。</p>
+<p>远处的山巅上，那个邋遢的老头儿靠在一棵歪脖子树上，嘴里叼着一根草茎，望着药庐的方向。</p>
+<p>“天要塌了……天要塌了……”他嘟囔着，眼中忽然闪过一丝清明。</p>
+<p>“不过嘛——也许，这一次，有人能把它撑住。”</p>
+<p>话音落下，清明散去，他又变回了那个疯疯癫癫的老头儿。</p>
+<p>风过无痕。</p>
+<p>万古天渊的夜空中，一颗极其微弱的灰色星辰悄然亮起。</p>
+<p>那光芒虽小，却仿佛要与整片星空争辉。</p>
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll', function(){
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+});
+</script>
+
+</body>
+</html>

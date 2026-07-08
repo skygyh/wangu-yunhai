@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>万古云海 - 万古云海</title>
+<style>
+:root {
+    --bg: #0e0e12;
+    --card-bg: #16161d;
+    --text: #d4d4dc;
+    --text-dim: #8a8a9a;
+    --accent: #6c9bff;
+    --accent2: #a78bfa;
+    --gold: #f0c674;
+    --border: #2a2a3a;
+    --hover: #1e1e2a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Noto Serif SC", "Source Han Serif CN", "Songti SC", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    min-height: 100vh;
+}
+.container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+h1 {
+    text-align: center; font-size: 2.2em; color: var(--gold);
+    margin-bottom: 8px; letter-spacing: 0.15em;
+}
+.subtitle { text-align: center; color: var(--text-dim); margin-bottom: 40px; font-size: 0.95em; }
+h2 {
+    font-size: 1.5em; color: var(--accent); margin: 48px 0 16px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+h3 { font-size: 1.2em; color: var(--accent2); margin: 32px 0 12px; }
+h4, h5, h6 { color: var(--gold); margin: 24px 0 8px; }
+p { margin: 12px 0; text-indent: 2em; text-align: justify; }
+blockquote {
+    border-left: 3px solid var(--accent2); margin: 16px 0;
+    padding: 8px 20px; background: rgba(167,139,250,0.06);
+    border-radius: 0 6px 6px 0;
+}
+blockquote p { text-indent: 0; color: var(--text-dim); font-style: italic; }
+ul { margin: 12px 0 12px 2em; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+table {
+    width: 100%; border-collapse: collapse; margin: 16px 0;
+    font-size: 0.92em;
+}
+th, td {
+    border: 1px solid var(--border); padding: 8px 12px; text-align: left;
+}
+th { background: rgba(108,155,255,0.1); color: var(--accent); font-weight: 600; }
+td { background: var(--card-bg); }
+strong { color: var(--gold); }
+code { background: rgba(108,155,255,0.12); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+/* 首页专用 */
+.hero { text-align: center; padding: 60px 0 20px; }
+.hero h1 { font-size: 3em; margin-bottom: 12px; }
+.hero .stats { color: var(--text-dim); font-size: 1.05em; margin-bottom: 48px; }
+.vol-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+.vol-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 24px; transition: all 0.25s;
+    cursor: pointer; text-decoration: none; display: block;
+}
+.vol-card:hover { border-color: var(--accent); background: var(--hover); transform: translateY(-2px); }
+.vol-card .vol-title { font-size: 1.2em; color: var(--gold); margin-bottom: 6px; }
+.vol-card .vol-meta { color: var(--text-dim); font-size: 0.88em; }
+.vol-card .vol-chapters {
+    margin-top: 10px; font-size: 0.85em; color: var(--text-dim);
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+}
+.vol-card:hover .vol-chapters { max-height: 600px; }
+.vol-card .vol-chapters span { display: inline-block; margin: 2px 8px 2px 0; }
+.vol-card .vol-chapters a { color: var(--accent); }
+.vol-card .vol-chapters a:hover { color: var(--gold); }
+
+/* 导航 */
+.nav {
+    position: sticky; top: 0; background: rgba(14,14,18,0.92);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
+    padding: 10px 24px; z-index: 100; display: flex; align-items: center;
+    gap: 16px; font-size: 0.9em;
+}
+.nav a { color: var(--text-dim); }
+.nav a:hover { color: var(--gold); }
+.nav .sep { color: var(--border); }
+
+/* 返回顶部 */
+.back-top {
+    position: fixed; bottom: 32px; right: 32px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--card-bg); border: 1px solid var(--border);
+    color: var(--accent); font-size: 1.3em; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+}
+.back-top.show { opacity: 1; }
+
+@media (max-width: 640px) {
+    .container { padding: 20px 16px 60px; }
+    h1 { font-size: 1.6em; }
+    h2 { font-size: 1.25em; }
+    .hero h1 { font-size: 2em; }
+    table { font-size: 0.82em; }
+    th, td { padding: 5px 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="hero">
+  <h1>万古云海</h1>
+  <p class="subtitle">玄幻修真长篇小说 · 辰东风格</p>
+  <p class="stats">全书 120 章 · 1005688 字（100.6万字）</p>
+</div>
+<div class="vol-grid">
+<a class="vol-card" href="楔子.html">
+  <div class="vol-title">楔子</div>
+  <div class="vol-meta">1868字</div>
+  
+</a><a class="vol-card" href="第一卷_初入修途.html">
+  <div class="vol-title">第一卷 · 初入修途</div>
+  <div class="vol-meta">10章 · 82289字</div>
+  <div class='vol-chapters'><a href="第一卷_初入修途.html#第一章-落云镇">第一章 落云镇</a><br><a href="第一卷_初入修途.html#第二章-癫翁">第二章 癫翁</a><br><a href="第一卷_初入修途.html#第三章-废体之名">第三章 废体之名</a><br><a href="第一卷_初入修途.html#第四章-逆天改命">第四章 逆天改命</a><br><a href="第一卷_初入修途.html#第五章-入宗">第五章 入宗</a><br><a href="第一卷_初入修途.html#第六章-外门磨砺">第六章 外门磨砺</a><br><a href="第一卷_初入修途.html#第七章-初露锋芒">第七章 初露锋芒</a><br><a href="第一卷_初入修途.html#第八章-秘境之门">第八章 秘境之门</a><br><a href="第一卷_初入修途.html#第九章-古墟探秘">第九章 古墟探秘</a><br><a href="第一卷_初入修途.html#第十章-暗流涌动">第十章 暗流涌动</a></div>
+</a><a class="vol-card" href="第二卷_灵海初开.html">
+  <div class="vol-title">第二卷 · 灵海初开</div>
+  <div class="vol-meta">10章 · 82023字</div>
+  <div class='vol-chapters'><a href="第二卷_灵海初开.html#第十一章-筑基风雷">第十一章 筑基风雷</a><br><a href="第二卷_灵海初开.html#第十二章-混沌灵海">第十二章 混沌灵海</a><br><a href="第二卷_灵海初开.html#第十三章-祸从天降">第十三章 祸从天降</a><br><a href="第二卷_灵海初开.html#第十四章-天雷淬体">第十四章 天雷淬体</a><br><a href="第二卷_灵海初开.html#第十五章-兽葬原">第十五章 兽葬原</a><br><a href="第二卷_灵海初开.html#第十六章-癫翁之殇">第十六章 癫翁之殇</a><br><a href="第二卷_灵海初开.html#第十七章-烈焰谷">第十七章 烈焰谷</a><br><a href="第二卷_灵海初开.html#第十八章-天机现世">第十八章 天机现世</a><br><a href="第二卷_灵海初开.html#第十九章-群英汇聚">第十九章 群英汇聚</a><br><a href="第二卷_灵海初开.html#第二十章-风暴前兆">第二十章 风暴前兆</a></div>
+</a><a class="vol-card" href="第三卷_秘境风云.html">
+  <div class="vol-title">第三卷 · 秘境风云</div>
+  <div class="vol-meta">10章 · 81284字</div>
+  <div class='vol-chapters'><a href="第三卷_秘境风云.html#第二十一章-石塔秘辛">第二十一章 石塔秘辛</a><br><a href="第三卷_秘境风云.html#第二十二章-传承殿">第二十二章 传承殿</a><br><a href="第三卷_秘境风云.html#第二十三章-天机塔">第二十三章 天机塔</a><br><a href="第三卷_秘境风云.html#第二十四章-天机考验">第二十四章 天机考验</a><br><a href="第三卷_秘境风云.html#第二十五章-名震九州">第二十五章 名震九州</a><br><a href="第三卷_秘境风云.html#第二十六章-秘境崩塌">第二十六章 秘境崩塌</a><br><a href="第三卷_秘境风云.html#第二十七章-名震九州">第二十七章 名震九州</a><br><a href="第三卷_秘境风云.html#第二十八章-远古回响">第二十八章 远古回响</a><br><a href="第三卷_秘境风云.html#第二十九章-秘境崩塌">第二十九章 秘境崩塌</a><br><a href="第三卷_秘境风云.html#第三十章-暗潮">第三十章 暗潮</a></div>
+</a><a class="vol-card" href="第四卷_天才大会.html">
+  <div class="vol-title">第四卷 · 天才大会</div>
+  <div class="vol-meta">10章 · 92773字</div>
+  <div class='vol-chapters'><a href="第四卷_天才大会.html#第三十一章-九州大会">第三十一章 九州大会</a><br><a href="第四卷_天才大会.html#第三十二章-群英荟萃">第三十二章 群英荟萃</a><br><a href="第四卷_天才大会.html#第三十三章-宿命对决">第三十三章 宿命对决</a><br><a href="第四卷_天才大会.html#第三十四章-天象降临">第三十四章 天象降临</a><br><a href="第四卷_天才大会.html#第三十五章-初遇九歌">第三十五章 初遇九歌</a><br><a href="第四卷_天才大会.html#第三十六章-巅峰之战">第三十六章 巅峰之战</a><br><a href="第四卷_天才大会.html#第三十七章-清风之约">第三十七章 清风之约</a><br><a href="第四卷_天才大会.html#第三十八章-玄天试炼">第三十八章 玄天试炼</a><br><a href="第四卷_天才大会.html#第三十九章-天柱山脉">第三十九章 天柱山脉</a><br><a href="第四卷_天才大会.html#第四十章-新的征程">第四十章 新的征程</a></div>
+</a><a class="vol-card" href="第五卷_禁地惊变.html">
+  <div class="vol-title">第五卷 · 禁地惊变</div>
+  <div class="vol-meta">10章 · 82899字</div>
+  <div class='vol-chapters'><a href="第五卷_禁地惊变.html#第四十一章-万寿神山">第四十一章 万寿神山</a><br><a href="第五卷_禁地惊变.html#第四十二章-禁区边缘">第四十二章 禁区边缘</a><br><a href="第五卷_禁地惊变.html#第四十三章-至尊遗骸">第四十三章 至尊遗骸</a><br><a href="第五卷_禁地惊变.html#第四十四章-至尊残卷">第四十四章 至尊残卷</a><br><a href="第五卷_禁地惊变.html#第四十五章-天命殿主">第四十五章 天命殿主</a><br><a href="第五卷_禁地惊变.html#第四十六章-绝地逢生">第四十六章 绝地逢生</a><br><a href="第五卷_禁地惊变.html#第四十七章-药老之殇">第四十七章 药老之殇</a><br><a href="第五卷_禁地惊变.html#第四十八章-苏暮雪被带走">第四十八章 苏暮雪被带走</a><br><a href="第五卷_禁地惊变.html#第四十九章-踏上新途">第四十九章 踏上新途</a><br><a href="第五卷_禁地惊变.html#第五十章-星空之路">第五十章 星空之路</a></div>
+</a><a class="vol-card" href="第六卷_中界风雷.html">
+  <div class="vol-title">第六卷 · 中界风雷</div>
+  <div class="vol-meta">10章 · 82557字</div>
+  <div class='vol-chapters'><a href="第六卷_中界风雷.html#第五十一章-中界初临">第五十一章 中界初临</a><br><a href="第六卷_中界风雷.html#第五十二章-天玄宗">第五十二章 天玄宗</a><br><a href="第六卷_中界风雷.html#第五十三章-底层崛起">第五十三章 底层崛起</a><br><a href="第六卷_中界风雷.html#第五十四章-化神之路">第五十四章 化神之路</a><br><a href="第六卷_中界风雷.html#第五十五章-元神显化">第五十五章 元神显化</a><br><a href="第六卷_中界风雷.html#第五十六章-暮雪消息">第五十六章 暮雪消息</a><br><a href="第六卷_中界风雷.html#第五十七章-叶家来人">第五十七章 叶家来人</a><br><a href="第六卷_中界风雷.html#第五十八章-叶家风云">第五十八章 叶家风云</a><br><a href="第六卷_中界风雷.html#第五十九章-天命殿的影子">第五十九章 天命殿的影子</a><br><a href="第六卷_中界风雷.html#第六十章-风雷将至">第六十章 风雷将至</a></div>
+</a><a class="vol-card" href="第七卷_万古战场.html">
+  <div class="vol-title">第七卷 · 万古战场</div>
+  <div class="vol-meta">10章 · 82922字</div>
+  <div class='vol-chapters'><a href="第七卷_万古战场.html#第六十一章-远古战场">第六十一章 远古战场</a><br><a href="第七卷_万古战场.html#第六十二章-太初遗山">第六十二章 太初遗山</a><br><a href="第七卷_万古战场.html#第六十三章-远古传承">第六十三章 远古传承</a><br><a href="第七卷_万古战场.html#第六十四章-混沌觉醒">第六十四章 混沌觉醒</a><br><a href="第七卷_万古战场.html#第六十五章-万族争锋">第六十五章 万族争锋</a><br><a href="第七卷_万古战场.html#第六十六章-天命殿出击">第六十六章 天命殿出击</a><br><a href="第七卷_万古战场.html#第六十七章-血战">第六十七章 血战</a><br><a href="第七卷_万古战场.html#第六十八章-癫翁归来">第六十八章 癫翁归来</a><br><a href="第七卷_万古战场.html#第六十九章-问道天道">第六十九章 问道天道</a><br><a href="第七卷_万古战场.html#第七十章-战场落幕">第七十章 战场落幕</a></div>
+</a><a class="vol-card" href="第八卷_圣地崩塌.html">
+  <div class="vol-title">第八卷 · 圣地崩塌</div>
+  <div class="vol-meta">10章 · 84057字</div>
+  <div class='vol-chapters'><a href="第八卷_圣地崩塌.html#第七十一章-风暴来临">第七十一章 风暴来临</a><br><a href="第八卷_圣地崩塌.html#第七十二章-抵抗">第七十二章 抵抗</a><br><a href="第八卷_圣地崩塌.html#第七十三章-联盟">第七十三章 联盟</a><br><a href="第八卷_圣地崩塌.html#第七十四章-楚九歌之伤">第七十四章 楚九歌之伤</a><br><a href="第八卷_圣地崩塌.html#第七十五章-幕后黑手">第七十五章 幕后黑手</a><br><a href="第八卷_圣地崩塌.html#第七十六章-葬神渊">第七十六章 葬神渊</a><br><a href="第八卷_圣地崩塌.html#第七十七章-圣地覆灭">第七十七章 圣地覆灭</a><br><a href="第八卷_圣地崩塌.html#第七十八章-最终之战">第七十八章 最终之战</a><br><a href="第八卷_圣地崩塌.html#第七十九章-重建">第七十九章 重建</a><br><a href="第八卷_圣地崩塌.html#第八十章-新的征程">第八十章 新的征程</a></div>
+</a><a class="vol-card" href="第九卷_太初真相.html">
+  <div class="vol-title">第九卷 · 太初真相</div>
+  <div class="vol-meta">10章 · 84220字</div>
+  <div class='vol-chapters'><a href="第九卷_太初真相.html#第八十一章-化神突破">第八十一章 化神突破</a><br><a href="第九卷_太初真相.html#第八十二章-禁区之王">第八十二章 禁区之王</a><br><a href="第九卷_太初真相.html#第八十三章-时间长河">第八十三章 时间长河</a><br><a href="第九卷_太初真相.html#第八十四章-万古真相">第八十四章 万古真相</a><br><a href="第九卷_太初真相.html#第八十五章-太初之珠觉醒">第八十五章 太初之珠觉醒</a><br><a href="第九卷_太初真相.html#第八十六章-癫翁归来">第八十六章 癫翁归来</a><br><a href="第九卷_太初真相.html#第八十七章-治愈">第八十七章 治愈</a><br><a href="第九卷_太初真相.html#第八十八章-新秩序">第八十八章 新秩序</a><br><a href="第九卷_太初真相.html#第八十九章-传承">第八十九章 传承</a><br><a href="第九卷_太初真相.html#第九十章-云海">第九十章 云海</a></div>
+</a><a class="vol-card" href="第十卷_诸天之战.html">
+  <div class="vol-title">第十卷 · 诸天之战</div>
+  <div class="vol-meta">10章 · 82148字</div>
+  <div class='vol-chapters'><a href="第十卷_诸天之战.html#第九十一章-最终集结">第九十一章 最终集结</a><br><a href="第十卷_诸天之战.html#第九十二章-帝域风云">第九十二章 帝域风云</a><br><a href="第十卷_诸天之战.html#第九十三章-太阴仙族">第九十三章 太阴仙族</a><br><a href="第十卷_诸天之战.html#第九十四章-诸天联军">第九十四章 诸天联军</a><br><a href="第十卷_诸天之战.html#第九十五章-轮回降临">第九十五章 轮回降临</a><br><a href="第十卷_诸天之战.html#第九十六章-石天之危">第九十六章 石天之危</a><br><a href="第十卷_诸天之战.html#第九十七章-怒破苍穹">第九十七章 怒破苍穹</a><br><a href="第十卷_诸天之战.html#第九十八章-镇压轮回">第九十八章 镇压轮回</a><br><a href="第十卷_诸天之战.html#第九十九章-新的秩序">第九十九章 新的秩序</a><br><a href="第十卷_诸天之战.html#第一百章-暴风前的宁静">第一百章 暴风前的宁静</a></div>
+</a><a class="vol-card" href="第十一卷_证道之路.html">
+  <div class="vol-title">第十一卷 · 证道之路</div>
+  <div class="vol-meta">10章 · 81735字</div>
+  <div class='vol-chapters'><a href="第十一卷_证道之路.html#第一百零一章-裂隙">第一百零一章 裂隙</a><br><a href="第十一卷_证道之路.html#第一百零二章-本源之力">第一百零二章 本源之力</a><br><a href="第十一卷_证道之路.html#第一百零三章-太初残念">第一百零三章 太初残念</a><br><a href="第十一卷_证道之路.html#第一百零四章-癫翁的真相">第一百零四章 癫翁的真相</a><br><a href="第十一卷_证道之路.html#第一百零五章-传承">第一百零五章 传承</a><br><a href="第十一卷_证道之路.html#第一百零六章-证道">第一百零六章 证道</a><br><a href="第十一卷_证道之路.html#第一百零七章-至尊归来">第一百零七章 至尊归来</a><br><a href="第十一卷_证道之路.html#第一百零八章-集结">第一百零八章 集结</a><br><a href="第十一卷_证道之路.html#第一百零九章-边界之战">第一百零九章 边界之战</a><br><a href="第十一卷_证道之路.html#第一百一十章-出征">第一百一十章 出征</a></div>
+</a><a class="vol-card" href="第十二卷_万古长存.html">
+  <div class="vol-title">第十二卷 · 万古长存</div>
+  <div class="vol-meta">10章 · 80728字</div>
+  <div class='vol-chapters'><a href="第十二卷_万古长存.html#第一百一十一章-新的征程">第一百一十一章 新的征程</a><br><a href="第十二卷_万古长存.html#第一百一十二章-云远的成长">第一百一十二章 云远的成长</a><br><a href="第十二卷_万古长存.html#第一百一十三章-诸天之盟">第一百一十三章 诸天之盟</a><br><a href="第十二卷_万古长存.html#第一百一十四章-暗流涌动">第一百一十四章 暗流涌动</a><br><a href="第十二卷_万古长存.html#第一百一十五章-诸天之盾">第一百一十五章 诸天之盾</a><br><a href="第十二卷_万古长存.html#第一百一十六章-守护者的选择">第一百一十六章 守护者的选择</a><br><a href="第十二卷_万古长存.html#第一百一十七章-传承之约">第一百一十七章 传承之约</a><br><a href="第十二卷_万古长存.html#第一百一十八章-云远的道">第一百一十八章 云远的道</a><br><a href="第十二卷_万古长存.html#第一百一十九章-永恒之约">第一百一十九章 永恒之约</a><br><a href="第十二卷_万古长存.html#第一百二十章-万古云海">第一百二十章 万古云海</a></div>
+</a><a class="vol-card" href="附录.html">
+  <div class="vol-title">附录</div>
+  <div class="vol-meta">4185字</div>
+  
+</a>
+</div>
+
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll', function(){
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+});
+</script>
+
+</body>
+</html>

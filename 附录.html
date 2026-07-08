@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>附录 - 万古云海</title>
+<style>
+:root {
+    --bg: #0e0e12;
+    --card-bg: #16161d;
+    --text: #d4d4dc;
+    --text-dim: #8a8a9a;
+    --accent: #6c9bff;
+    --accent2: #a78bfa;
+    --gold: #f0c674;
+    --border: #2a2a3a;
+    --hover: #1e1e2a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: "Noto Serif SC", "Source Han Serif CN", "Songti SC", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    min-height: 100vh;
+}
+.container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+h1 {
+    text-align: center; font-size: 2.2em; color: var(--gold);
+    margin-bottom: 8px; letter-spacing: 0.15em;
+}
+.subtitle { text-align: center; color: var(--text-dim); margin-bottom: 40px; font-size: 0.95em; }
+h2 {
+    font-size: 1.5em; color: var(--accent); margin: 48px 0 16px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+h3 { font-size: 1.2em; color: var(--accent2); margin: 32px 0 12px; }
+h4, h5, h6 { color: var(--gold); margin: 24px 0 8px; }
+p { margin: 12px 0; text-indent: 2em; text-align: justify; }
+blockquote {
+    border-left: 3px solid var(--accent2); margin: 16px 0;
+    padding: 8px 20px; background: rgba(167,139,250,0.06);
+    border-radius: 0 6px 6px 0;
+}
+blockquote p { text-indent: 0; color: var(--text-dim); font-style: italic; }
+ul { margin: 12px 0 12px 2em; }
+li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+table {
+    width: 100%; border-collapse: collapse; margin: 16px 0;
+    font-size: 0.92em;
+}
+th, td {
+    border: 1px solid var(--border); padding: 8px 12px; text-align: left;
+}
+th { background: rgba(108,155,255,0.1); color: var(--accent); font-weight: 600; }
+td { background: var(--card-bg); }
+strong { color: var(--gold); }
+code { background: rgba(108,155,255,0.12); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+/* 首页专用 */
+.hero { text-align: center; padding: 60px 0 20px; }
+.hero h1 { font-size: 3em; margin-bottom: 12px; }
+.hero .stats { color: var(--text-dim); font-size: 1.05em; margin-bottom: 48px; }
+.vol-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+.vol-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 24px; transition: all 0.25s;
+    cursor: pointer; text-decoration: none; display: block;
+}
+.vol-card:hover { border-color: var(--accent); background: var(--hover); transform: translateY(-2px); }
+.vol-card .vol-title { font-size: 1.2em; color: var(--gold); margin-bottom: 6px; }
+.vol-card .vol-meta { color: var(--text-dim); font-size: 0.88em; }
+.vol-card .vol-chapters {
+    margin-top: 10px; font-size: 0.85em; color: var(--text-dim);
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+}
+.vol-card:hover .vol-chapters { max-height: 600px; }
+.vol-card .vol-chapters span { display: inline-block; margin: 2px 8px 2px 0; }
+.vol-card .vol-chapters a { color: var(--accent); }
+.vol-card .vol-chapters a:hover { color: var(--gold); }
+
+/* 导航 */
+.nav {
+    position: sticky; top: 0; background: rgba(14,14,18,0.92);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
+    padding: 10px 24px; z-index: 100; display: flex; align-items: center;
+    gap: 16px; font-size: 0.9em;
+}
+.nav a { color: var(--text-dim); }
+.nav a:hover { color: var(--gold); }
+.nav .sep { color: var(--border); }
+
+/* 返回顶部 */
+.back-top {
+    position: fixed; bottom: 32px; right: 32px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--card-bg); border: 1px solid var(--border);
+    color: var(--accent); font-size: 1.3em; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+}
+.back-top.show { opacity: 1; }
+
+@media (max-width: 640px) {
+    .container { padding: 20px 16px 60px; }
+    h1 { font-size: 1.6em; }
+    h2 { font-size: 1.25em; }
+    .hero h1 { font-size: 2em; }
+    table { font-size: 0.82em; }
+    th, td { padding: 5px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="nav">
+<a href="index.html">首页</a>
+<span class="sep">›</span>
+<span style="color:var(--gold)">附录</span>
+<span style="flex:1"></span>
+<a href="第十二卷_万古长存.html">← 第十二卷 · 万古长存</a>
+</div>
+<div class="container">
+<h1 id="附录">附录</h1>
+<hr>
+<h2 id="一、修炼境界总览——天渊九境">一、修炼境界总览——天渊九境</h2>
+<p>万古天渊的修炼体系共分九大境界，每境四阶（初期、中期、后期、大圆满），至尊之上另有万古不朽与超脱之说。</p>
+<table>
+<tr><th>序</th><th>境界</th><th>核心含义</th><th>战力标志</th></tr>
+<tr><td>一</td><td>引气境</td><td>感应灵气，引入体内，开辟丹田</td><td>开山裂石，远超凡人</td></tr>
+<tr><td>二</td><td>筑基境</td><td>灵气筑就根基，凝练真元</td><td>飞檐走壁</td></tr>
+<tr><td>三</td><td>灵海境</td><td>丹田内形成灵海异象</td><td>御空飞行，可摧山峰</td></tr>
+<tr><td>四</td><td>天象境</td><td>引动天地异象，日月星辰之力融入己身</td><td>移山填海</td></tr>
+<tr><td>五</td><td>化神境</td><td>凝聚元神，元神出窍，领悟神通</td><td>可横渡星域</td></tr>
+<tr><td>六</td><td>问道境</td><td>追问大道本源，触碰天道法则</td><td>一念可灭星辰</td></tr>
+<tr><td>七</td><td>渡劫境</td><td>天劫降临，以力抗天</td><td>可在星域间穿梭</td></tr>
+<tr><td>八</td><td>准帝境</td><td>接近至尊之位，领悟帝道雏形</td><td>一人可镇一方星域</td></tr>
+<tr><td>九</td><td>至尊境</td><td>超脱万古，与万古天渊本源共鸣</td><td>一念可毁灭一方天地</td></tr>
+</table>
+<p><strong>至尊之上</strong></p>
+<ul>
+<li><strong>万古不朽</strong>：不生不灭，与天地同寿。太初之主即处此境，云海在终极之战中短暂触及此境门槛。</li>
+<li><strong>超脱</strong>：跳出万古天渊，其是否存在至今仍是悬案。</li>
+</ul>
+<hr>
+<h2 id="二、四大疆域">二、四大疆域</h2>
+<h3 id="下界——九州天地">下界——九州天地</h3>
+<p>九州分布：云州、雷州、风州、焰州、泽州、岳州、玄州、冰州、荒州。主流修炼层次为引气境至灵海境。各州有宗门、世家、王朝等势力。云海出身于云州边陲落云镇。</p>
+<h3 id="中界——万域星空">中界——万域星空</h3>
+<p>无数大小星域组成的广袤世界。天象境至化神境为主流战力。各大圣地、古族林立。天玄宗位于玄天星，是云海在中界的根基。</p>
+<h3 id="上界——诸天帝域">上界——诸天帝域</h3>
+<p>远古帝族与太古世家的领地。问道境至渡劫境为主流。太阴仙族、叶家等顶尖势力均在此处。有通往万古天渊核心的古路。</p>
+<h3 id="天外天——太初之域">天外天——太初之域</h3>
+<p>万古天渊的最深层，准帝境以上方可涉足。远古战场、太初遗迹皆在此处。太初墟、混沌深渊等终极禁区坐落于此。</p>
+<hr>
+<h2 id="三、七大万古禁地">三、七大万古禁地</h2>
+<table>
+<tr><th>禁地</th><th>位置</th><th>核心秘密</th><th>相关剧情</th></tr>
+<tr><td>太初墟</td><td>天外天深处</td><td>万古天渊的起源之地，封印太初之主</td><td>第九卷云海深入太初墟揭开万古真相；第十一卷最终大战之地</td></tr>
+<tr><td>葬神渊</td><td>上界与天外天交界</td><td>远古诸神陨落之处，蕴含生死法则</td><td>第八卷云海在此领悟生死法则雏形</td></tr>
+<tr><td>万寿神山</td><td>中界核心</td><td>远古至尊以身化山，山中有不死神药</td><td>第五卷云海深入万寿神山获至尊残卷</td></tr>
+<tr><td>兽葬原</td><td>下界与中界交界</td><td>太古凶兽墓葬群，封印兽祖残念</td><td>第二卷云海首次触发混沌云体觉醒</td></tr>
+<tr><td>天机阁</td><td>中界隐秘星域</td><td>上古文明遗产，藏有推演天道的至宝</td><td>第三卷天机阁秘境之行，云海名震九州</td></tr>
+<tr><td>轮回海</td><td>上界深处</td><td>轮回法则具现的禁海</td><td>第十卷轮回帝主于此苏醒，后被云海镇压</td></tr>
+<tr><td>混沌深渊</td><td>天外天最深处</td><td>混沌本源，万古天渊诞生前的原初之地</td><td>第十一卷云海在此证道至尊</td></tr>
+</table>
+<hr>
+<h2 id="四、历史纪元">四、历史纪元</h2>
+<ul>
+<li><strong>太初纪元</strong>：混沌初开，万古天渊形成，太初九尊诞生，与太初之主大战，六尊陨落，太初之主被封。</li>
+<li><strong>诸神纪元</strong>：神族统治天地，建立神朝，后因内乱崩塌，远古诸神陨于葬神渊。</li>
+<li><strong>万族纪元</strong>：神族没落，万族崛起，帝族轮替，七大禁地形成。</li>
+<li><strong>当今纪元</strong>：距上一位至尊陨落已过十万年，天地法则日趋衰弱。云海于此纪元崛起。</li>
+</ul>
+<hr>
+<h2 id="五、主要人物谱">五、主要人物谱</h2>
+<h3 id="正方">正方</h3>
+<table>
+<tr><th>人物</th><th>身份</th><th>体质／绝学</th><th>最终境界</th><th>核心关系</th></tr>
+<tr><td>云海</td><td>落云镇孤儿，太初之珠载体</td><td>混沌云体，万古云海诀</td><td>至尊（触及万古不朽）</td><td>主角</td></tr>
+<tr><td>苏暮雪</td><td>太阴仙族后裔</td><td>太阴仙体，太阴神月术</td><td>万古不朽</td><td>云海之妻</td></tr>
+<tr><td>癫翁（太虚道祖）</td><td>太初纪元最后一位至尊</td><td>至尊级残躯</td><td>至尊（消散）</td><td>云海之师，以残躯挡下太初之主致命一击后消散</td></tr>
+<tr><td>叶无殇</td><td>中界叶家嫡子</td><td>战神体，不灭战意</td><td>准帝境巅峰</td><td>云海至交，亦敌亦友</td></tr>
+<tr><td>楚九歌</td><td>上界楚家，九凰血脉传人</td><td>九凰血脉，九凰焚天诀</td><td>准帝境</td><td>战友挚友</td></tr>
+<tr><td>石天</td><td>落云镇猎户之子</td><td>无特殊体质，意志惊人</td><td>化神巅峰</td><td>云海发小，忠实兄弟</td></tr>
+<tr><td>陆青阳</td><td>清风宗内门首席</td><td>剑道天赋</td><td>准帝境</td><td>初为对手，后化敌为友</td></tr>
+<tr><td>药老</td><td>落云镇药师，前中界化神境强者</td><td>—</td><td>已故</td><td>收养云海之恩人</td></tr>
+<tr><td>云远</td><td>云海与苏暮雪之子</td><td>混沌太阴之体</td><td>至尊</td><td>下一代守护者</td></tr>
+<tr><td>苍蓝</td><td>苍穹帝尊之女</td><td>星光之体</td><td>准帝境</td><td>云远之妻</td></tr>
+</table>
+<h3 id="反方">反方</h3>
+<table>
+<tr><th>人物</th><th>身份</th><th>最终结局</th></tr>
+<tr><td>纪天命</td><td>天命殿主，准帝境巅峰</td><td>被云海击败后逃入轮回海，被轮回帝主吞噬</td></tr>
+<tr><td>轮回帝主</td><td>远古至尊，沉睡于轮回海</td><td>第十卷被云海以万古天渊本源之力镇压</td></tr>
+<tr><td>太初之主</td><td>混沌本源化身，万古不朽境</td><td>终极反派，被云海引动万古天渊意志击溃</td></tr>
+</table>
+<h3 id="诸天帝尊（第十二卷后期势力）">诸天帝尊（第十二卷后期势力）</h3>
+<table>
+<tr><th>帝尊</th><th>世界</th><th>特点</th></tr>
+<tr><td>苍穹帝尊</td><td>苍穹界</td><td>星光之力，苍蓝之父</td></tr>
+<tr><td>炎魔帝尊</td><td>炎魔界</td><td>火焰之力，性格豪爽</td></tr>
+<tr><td>碧落帝尊</td><td>碧落界</td><td>水灵之力</td></tr>
+</table>
+<hr>
+<h2 id="六、特殊体质一览">六、特殊体质一览</h2>
+<table>
+<tr><th>体质</th><th>持有者</th><th>说明</th></tr>
+<tr><td>混沌云体</td><td>云海</td><td>蕴含太初混沌之力，共三层觉醒：灰败→玄黑→无色。初期被误认为废体“灰败灵根”</td></tr>
+<tr><td>太阴仙体</td><td>苏暮雪</td><td>上古仙族血脉，与月华共鸣，银色灵力</td></tr>
+<tr><td>战神体</td><td>叶无殇</td><td>天生战意惊人，越战越强</td></tr>
+<tr><td>九凰血脉</td><td>楚九歌</td><td>远古凰族后裔，可引动凰火，浴火重生</td></tr>
+<tr><td>混沌本源体</td><td>太初之主</td><td>与混沌本源合一，万古天渊的对立面</td></tr>
+<tr><td>混沌太阴之体</td><td>云远</td><td>混沌云体与太阴仙体的融合，兼具双亲特质</td></tr>
+</table>
+<hr>
+<h2 id="七、核心功法与神通">七、核心功法与神通</h2>
+<table>
+<tr><th>名称</th><th>使用者</th><th>说明</th></tr>
+<tr><td>万古云海诀</td><td>云海</td><td>核心功法，随修为提升不断演化，至尊阶段与万古天渊本源共鸣</td></tr>
+<tr><td>混沌吞天术</td><td>云海</td><td>混沌云体觉醒后可施展，吞噬一切攻击转化为己用</td></tr>
+<tr><td>太阴神月术</td><td>苏暮雪</td><td>月华如剑，太阴仙体核心神通</td></tr>
+<tr><td>不灭战意</td><td>叶无殇</td><td>独门战技，以战养战，战神体专属</td></tr>
+<tr><td>九凰焚天诀</td><td>楚九歌</td><td>家传绝学，凰火焚天，可浴火重生</td></tr>
+<tr><td>轮回天眼</td><td>轮回帝主</td><td>至尊神通，可操控生死轮回</td></tr>
+<tr><td>太初造化</td><td>太初之主</td><td>终极之力，一念造化天地，一念毁灭万物</td></tr>
+<tr><td>太初共鸣</td><td>云远</td><td>云远独创，与太初残念沟通共鸣，化敌为友</td></tr>
+<tr><td>万古医术</td><td>苏暮雪</td><td>太阴仙体衍生的治愈之术，后传于万古学府</td></tr>
+</table>
+<hr>
+<h2 id="八、重要地点">八、重要地点</h2>
+<table>
+<tr><th>地点</th><th>说明</th></tr>
+<tr><td>落云镇</td><td>云州边陲小镇，云海与石天的故乡，药庐所在地</td></tr>
+<tr><td>药庐</td><td>药老收养云海之处，后成为云海一家的居所，万古天渊的精神象征</td></tr>
+<tr><td>清风宗</td><td>云州修仙宗门，云海与苏暮雪初识之地</td></tr>
+<tr><td>天玄宗</td><td>中界玄天星上的宗门，云海在中界的根基</td></tr>
+<tr><td>万古学府</td><td>战后建立的修炼学府，培养下一代守护者</td></tr>
+<tr><td>万古客栈</td><td>云海开设的跨世界客栈，诸天旅人歇脚之所，匾额“万古如归”</td></tr>
+<tr><td>太初花园</td><td>云远在太初深处种植的多世界植物园，太初残念的栖息地</td></tr>
+</table>
+<hr>
+<h2 id="九、重要物品">九、重要物品</h2>
+<table>
+<tr><th>物品</th><th>说明</th></tr>
+<tr><td>太初之珠</td><td>万古天渊的本源核心，由太虚道祖封入婴儿云海体内，共十二碎片，重铸后为完整形态</td></tr>
+<tr><td>云海剑</td><td>远古神兵，云海的佩剑</td></tr>
+<tr><td>至尊残卷</td><td>万寿神山中远古至尊的功法残篇</td></tr>
+<tr><td>风铃</td><td>药庐门前的铜铃，贯穿全书的情感象征</td></tr>
+<tr><td>万古守护录</td><td>云海晚年所著，记录诸位守护者的故事，流传诸天万界</td></tr>
+</table>
+<hr>
+<h2 id="十、全书卷目">十、全书卷目</h2>
+<table>
+<tr><th>卷序</th><th>卷名</th><th>章序</th><th>核心内容</th></tr>
+<tr><td>第一卷</td><td>初入修途</td><td>第一章至第十章</td><td>落云镇少年觉醒混沌云体，入清风宗，初露锋芒</td></tr>
+<tr><td>第二卷</td><td>灵海初开</td><td>第十一章至第二十章</td><td>突破灵海境，出走清风宗，踏上更广阔天地</td></tr>
+<tr><td>第三卷</td><td>秘境风云</td><td>第二十一章至第三十章</td><td>天机阁秘境，名震九州，初碰万古天渊远古真相</td></tr>
+<tr><td>第四卷</td><td>天才大会</td><td>第三十一章至第四十章</td><td>九州天才大会夺魁，突破天象境，苏暮雪被带走</td></tr>
+<tr><td>第五卷</td><td>禁地惊变</td><td>第四十一章至第五十章</td><td>万寿神山获至尊残卷，药老遇害，踏入中界</td></tr>
+<tr><td>第六卷</td><td>中界风雷</td><td>第五十一章至第六十章</td><td>初入中界，加入天玄宗，突破化神境</td></tr>
+<tr><td>第七卷</td><td>万古战场</td><td>第六十一章至第七十章</td><td>远古战场传承，混沌云体完全觉醒，突破问道境</td></tr>
+<tr><td>第八卷</td><td>圣地崩塌</td><td>第七十一章至第八十章</td><td>天命殿大举入侵，葬神渊之行，救出苏暮雪</td></tr>
+<tr><td>第九卷</td><td>太初真相</td><td>第八十一章至第九十章</td><td>太初墟揭真相，太初之珠觉醒，突破渡劫境</td></tr>
+<tr><td>第十卷</td><td>诸天之战</td><td>第九十一章至第一百章</td><td>上界大乱，诸天联军，镇压轮回帝主，突破准帝境</td></tr>
+<tr><td>第十一卷</td><td>证道之路</td><td>第一百零一章至第一百一十章</td><td>混沌深渊证道至尊，癫翁真相揭晓，终极出征</td></tr>
+<tr><td>第十二卷</td><td>万古长存</td><td>第一百一十一章至第一百二十章</td><td>诸天联盟，守护传承，云远继承大道，万古不朽</td></tr>
+</table>
+<hr>
+<h2 id="十一、写作风格备忘">十一、写作风格备忘</h2>
+<p>本书风格定位为“辰东式宏大叙事”，核心要点：</p>
+<ul>
+<li><strong>每章末尾留悬念</strong>：用一句话或一个画面引发读者好奇心。</li>
+<li><strong>战斗描写热血澎湃</strong>：重点刻画以弱胜强、绝境逆转的名场面。</li>
+<li><strong>适当幽默调剂</strong>：癫翁的疯言疯语、石天的憨厚、楚九歌的直率。</li>
+<li><strong>远古谜团层层揭开</strong>：太初之珠→万古天渊起源→太初之主→混沌本源。</li>
+<li><strong>经典台词点睛</strong>：关键时刻的一句话令人印象深刻。</li>
+<li><strong>群像塑造</strong>：配角也有自己的高光时刻，不做工具人。</li>
+<li><strong>世界观递进展开</strong>：下界→中界→上界→天外天，每个阶段都有新的冲击。</li>
+<li><strong>章节标题简洁有力</strong>：两到四个字，意境突出。</li>
+<li><strong>伏笔与呼应</strong>：前期埋设的伏笔在后期一一揭晓。</li>
+<li><strong>结尾留白</strong>：不把一切说尽，给读者想象空间。</li>
+</ul>
+<hr>
+<h2 id="十二、经典语录">十二、经典语录</h2>
+<blockquote>
+<p>“天要塌了，天要塌了，天塌下来当被盖……” ——癫翁</p>
+</blockquote>
+<blockquote>
+<p>“小子，别怕，老头子死不了。” ——癫翁</p>
+</blockquote>
+<blockquote>
+<p>“你是我遇过最难缠的对手。” ——叶无殇</p>
+</blockquote>
+<blockquote>
+<p>“等我回来。” ——苏暮雪</p>
+</blockquote>
+<blockquote>
+<p>“万古天渊之下，埋葬着真正的天地。” ——远古石碑</p>
+</blockquote>
+<blockquote>
+<p>“小子……老头子这辈子……值了。” ——太虚道祖（癫翁）</p>
+</blockquote>
+<blockquote>
+<p>“我的道——是守护。守护我在乎的一切——不管代价是什么。” ——云海</p>
+</blockquote>
+<blockquote>
+<p>“天才不是唯一的道路，守护才是。” ——石天</p>
+</blockquote>
+<blockquote>
+<p>“好人——比强人——重要。” ——药老 → 云海 → 云远 → 小云海</p>
+</blockquote>
+<blockquote>
+<p>“万古不朽——不是境界——是精神。” ——云海</p>
+</blockquote>
+<blockquote>
+<p>“理解——不是同情——是平等。” ——云远</p>
+</blockquote>
+<blockquote>
+<p>“嫌弃——就是爱。” ——苏暮雪</p>
+</blockquote>
+<blockquote>
+<p>“万古云海——万古——不朽。” ——全书末句</p>
+</blockquote>
+</div>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+window.addEventListener('scroll', function(){
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+});
+</script>
+
+</body>
+</html>
